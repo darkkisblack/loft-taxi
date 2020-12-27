@@ -16,7 +16,7 @@ class Header extends React.Component {
     
   }
 
-  unauthenticate = () => {
+  unAuth = () => {
     this.props.logOut();
     this.props.goToPage('login')
   }
@@ -38,7 +38,7 @@ class Header extends React.Component {
                      <button onClick={this.goToProfilePage} className={'Header__column-button' + " " + (this.props.currentPage === 'profile' ? 'Header__column-button--active' : "")}>Профиль</button>
                    </li>
                    <li>
-                     <button onClick={this.unauthenticate} className="Header__column-button">Выйти</button>
+                     <button onClick={this.unAuth} className="Header__column-button">Выйти</button>
                    </li>
                  </ul>
                </nav>
