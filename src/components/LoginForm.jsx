@@ -1,19 +1,15 @@
 import React, {Component} from 'react';
-import {WithAuth} from "./AuthContext";
 import {PropTypes} from "prop-types";
-
-
+import { connect } from "react-redux"
+import { authenticate } from "../actions"
+import { Link } from "react-router-dom"
 
 class LoginForm extends Component {
-
-  goToRegistrationPage = () => {
-    this.props.goToPage('registration');
-  }
-
+  
   authenticate = (event) => {
     event.preventDefault();
     const {email, password} = event.target;
-    this.props.logIn(email.value, password.value)
+    this.props.auth(email.value, password.value)
   }
 
   render() {
@@ -35,7 +31,7 @@ class LoginForm extends Component {
             <input type="submit" className="Login-form__button Entry-button" value="Войти" />
             <div className="Form__new-user">
               <p className="Form__new-user-text">Новый пользователь?</p>
-              <button onClick={this.goToRegistrationPage} className="Button New-user__button Login-form__new-user-button">Регистрация</button>
+              <Link to="/registration" className="Button New-user__button Login-form__new-user-button">Регистрация</Link>
             </div>
           </div>
         </form>
@@ -45,8 +41,11 @@ class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-  logIn: PropTypes.func,
-  goToPage: PropTypes.func,
+  auth: PropTypes.func,
 }
 
-export default WithAuth(LoginForm);
+const mapDispatchToProps = dispatch => ({
+  auth: (email, password) => dispatch(authenticate({email, password}))
+})
+
+export default connect(null, mapDispatchToProps)(LoginForm);

@@ -1,24 +1,36 @@
 import React from 'react';
-import {WithAuth} from './AuthContext'
-import {HeaderWithAuth} from "./Header";
+import Header from "./Header";
+import {PropTypes} from "prop-types";
+import ProfileNotification from "./ProfileNotification";
+import ProfileForm from "./ProfileForm";
+import { connect } from "react-redux"
 
-
-
-export class Profile extends React.Component {
-    goToPage = (page) => {
-      this.props.navigate(page);
-    }
-    
-    render() {
+class Profile extends React.Component {
+  
+  render() {
     return (
       <div>
-        <HeaderWithAuth goToPage={this.goToPage} currentPage={this.props.currentPage}/>
-        <>Profile</>
+        <Header/>
+        <div>
+          {this.props.isCardSaved
+          ? (
+            <ProfileNotification />
+          )
+          : (
+            <ProfileForm />
+          )}
+        </div>
       </div>
     )
   }
 }
 
+Profile.propTypes = {
+  isCardSaved: PropTypes.bool,
+}
 
+const mapStateToProps = (state) => ({
+  isCardSaved: state.card.isCardSaved
+})
 
-export const ProfileWithAuth = WithAuth(Profile);
+export default connect(mapStateToProps)(Profile);

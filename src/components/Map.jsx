@@ -1,17 +1,12 @@
 import React, {Component} from 'react';
 import mapboxgl from 'mapbox-gl';
-import {WithAuth} from './AuthContext'
-import {HeaderWithAuth} from "./Header";
-import {PropTypes} from "prop-types"
+import Header from "./Header";
+import '../css/Map.css';
 
 
-export class Map extends Component {
+class Map extends Component {
   map = null;
   mapContainer = React.createRef();
-
-  goToPage = (page) => {
-    this.props.navigate(page);
-  }
 
   componentDidMount() {
     mapboxgl.accessToken = "pk.eyJ1IjoiZGFya2tpc2JsYWNrIiwiYSI6ImNraXg2ZHRmbDBsbnIzMG54NDB3ZTdqbTgifQ.2Y7KZCPI3rC4VW4gEpt5KQ";
@@ -21,7 +16,6 @@ export class Map extends Component {
       center: [37.6156, 55.7522],
       zoom: 10,
     })
-
   }
 
   componentWillUnmount() {
@@ -31,7 +25,7 @@ export class Map extends Component {
   render() {
     return (
      <div>
-       <HeaderWithAuth goToPage={this.goToPage} currentPage={this.props.currentPage}/>
+       <Header/>
         <div className="Map-wrapper">
           <div className="Map" data-testid="map" ref={this.mapContainer}>
         </div>
@@ -42,9 +36,4 @@ export class Map extends Component {
   }
 }
 
-Map.propTypes = {
-  logOut: PropTypes.func,
-  navigate: PropTypes.func,
-}
-
-export const MapWithAuth = WithAuth(Map);
+export default Map;

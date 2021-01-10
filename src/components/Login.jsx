@@ -1,16 +1,16 @@
 import React from 'react';
-import logo from '../logo.svg';
-import {WithAuth} from "./AuthContext";
+import logo from '../images/logo.svg';
 import LoginForm from "./LoginForm";
+import { connect } from "react-redux"
 import LoginNotification from "./LoginNotification";
 import {PropTypes} from "prop-types";
+import '../css/Starting-page.css';
+import '../css/Side-section.css';
 
 
-export class Login extends React.Component {
-  goToPage = (page) => {
-    this.props.navigate(page);
-  }
 
+class Login extends React.Component {
+  
   render() {
     return (
       <div  className="Starting-page">
@@ -20,10 +20,10 @@ export class Login extends React.Component {
         <main className="Starting-page__main-block">
           {this.props.isLoggedIn 
           ? (
-            <LoginNotification goToPage={this.goToPage}/>
+            <LoginNotification/>
             ) 
           : (
-            <LoginForm goToPage={this.goToPage}/>
+            <LoginForm/>
           )}
         </main>
       </div>
@@ -33,8 +33,7 @@ export class Login extends React.Component {
 
 Login.propTypes = {
   isLoggedIn: PropTypes.bool,
-  logIn: PropTypes.func,
-  navigate: PropTypes.func,
 }
 
-export const LoginWithAuth = WithAuth(Login);
+
+export default connect((state) => ({isLoggedIn: state.auth.isLoggedIn}))(Login);

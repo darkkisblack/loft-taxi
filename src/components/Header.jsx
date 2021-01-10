@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from '../Logo2.svg';
-import {PropTypes} from "prop-types"
-import {WithAuth} from './AuthContext'
-
-
+import logo from '../images/Logo2.svg';
+import { PropTypes } from "prop-types"
+import { connect } from "react-redux"
+import { logOut } from "../actions"
+import { Link, NavLink } from "react-router-dom"
+import '../css/Header.css';
+import '../css/Menu.css';
 
 class Header extends React.Component {
-  
-  goToMapPage = () => {
-    this.props.goToPage('map');
-      }
 
-  goToProfilePage = () => {
-    this.props.goToPage('profile')
-    
-  }
-
-  unAuth = () => {
+  unauthenticate = () => {
     this.props.logOut();
-    this.props.goToPage('login')
   }
 
   render () {
@@ -29,19 +21,21 @@ class Header extends React.Component {
                <div className="Header__column">
                  <img src={logo}  className="Header__logo" alt='logo'/>
                </div>
-               <nav>
-                 <ul className="Header__column">
-                   <li>
-                     <button onClick={this.goToMapPage} className={'Header__column-button' + " " + (this.props.currentPage === 'map' ? 'Header__column-button--active' : "")}>Карты</button>
-                   </li>
-                   <li>
-                     <button onClick={this.goToProfilePage} className={'Header__column-button' + " " + (this.props.currentPage === 'profile' ? 'Header__column-button--active' : "")}>Профиль</button>
-                   </li>
-                   <li>
-                     <button onClick={this.unAuth} className="Header__column-button">Выйти</button>
-                   </li>
-                 </ul>
-               </nav>
+               <div  className="Header__column">
+                 <nav className="Menu">
+                   <ul className="Menu__list">
+                     <li className="Menu__item">
+                        <NavLink to="/map" className='Menu__button'>Карты</NavLink>
+                     </li>
+                     <li  className="Menu__item">
+                        <NavLink to="/profile" className='Menu__button'>Профиль</NavLink>
+                     </li>
+                     <li  className="Menu__item">
+                       <Link to="/" onClick={this.unauthenticate} className="Menu__button">Выйти</Link>
+                     </li>
+                   </ul>
+                 </nav>
+               </div>
              </div>
            </header>
       </div>
@@ -51,7 +45,10 @@ class Header extends React.Component {
 
 Header.propTypes = {
   logOut: PropTypes.func,
-  navigate: PropTypes.func,
 }
 
-export const HeaderWithAuth = WithAuth(Header);
+const mapDispatchToProps = dispatch => ({
+  logOut: () => dispatch(logOut())
+})
+
+export default connect(null, mapDispatchToProps)(Header);

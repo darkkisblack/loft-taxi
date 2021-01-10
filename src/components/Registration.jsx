@@ -1,8 +1,10 @@
 import React from 'react';
-import logo from '../logo.svg';
-import {PropTypes} from "prop-types"
+import logo from '../images/logo.svg';
+import { Link } from "react-router-dom"
+import '../css/Registration.css';
 
-const RegistrationForm = ({navigate}) => {
+
+const RegistrationForm = () => {
  
   return (
     <div className="Starting-page">
@@ -11,7 +13,7 @@ const RegistrationForm = ({navigate}) => {
       </section>
       <main className="Starting-page__main-block">
         <div  className="Form-container">
-          <form onSubmit={() => navigate("map")} className="Form">
+          <form onSubmit={<Link to="/map"></Link>} className="Form">
             <h2 className="Form__heading">Регистрация</h2>
             <div className="Form__content">
               <label className="Form__label" htmlFor="email">
@@ -20,7 +22,7 @@ const RegistrationForm = ({navigate}) => {
               </label>
               <label className="Form__label" htmlFor="name">
                 <p className="Form__text">Как вас зовут?*</p>
-                <input id="name" type="text"  data-testid="name" className="Form__email  Form__input" name="name" size="28" placeholder="Иван Иванович"/>
+                <input id="name" type="text"  data-testid="name" className="Form__email  Form__input" name="name" size="28" placeholder="Петр Александрович"/>
               </label>
               <label className="Form__label" htmlFor="password">
                 <p className="Form__text">Придумайте пароль*</p>
@@ -29,7 +31,7 @@ const RegistrationForm = ({navigate}) => {
               <input type="submit" className="Form__button Entry-button" value="Зарегистрироваться" />
               <div className="Form__new-user">
                 <p className="Form__new-user-text">Уже зарегистрированы?</p>
-                <button onClick={() => navigate("login")} className="Button New-user__button Form__button">Войти</button>
+                <Link to="/" className="Button New-user__button Form__button">Войти</Link>
               </div>
             </div>
           </form>
@@ -38,10 +40,5 @@ const RegistrationForm = ({navigate}) => {
     </div>
   )
 }
-
-RegistrationForm.propTypes = {
-  navigateTo: PropTypes.func,
-}
-
 
 export default RegistrationForm;
