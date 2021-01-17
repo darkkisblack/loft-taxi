@@ -1,16 +1,11 @@
 import React from 'React';
-import { LoginNotification } from './LoginNotification';
 import { render } from '@testing-library/react';
+import { LoginForm } from './Login';
 
-
-describe("LoginNotification", () => {
-
-  it("renders correctrly", () => {
-    const { container} = render (<LoginNotification/>)
-
-    expect(container.innerHTML).toMatch('Вы зарегистрированы.')
+describe("LoginForm", () => {
+  it("renders correctly", () => {
+    const {getByTestId} = render(<LoginForm/>)
+    expect(getByTestId('email')).toHaveAttribute('name', 'email')
+    expect(getByTestId('password')).toHaveAttribute('name', 'password')
   })
 })
-
-
-

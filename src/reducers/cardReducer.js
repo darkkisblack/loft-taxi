@@ -1,6 +1,7 @@
-import { SAVECARD, SAVECARDSUCCESS } from "../actions";
+import { GETCARDSUCCESS } from "../actions/cardAction";
+import { SAVECARD, SAVECARDSUCCESS } from "../actions/cardAction";
 
-const initialState = {
+let initialState = {
   cardNumber: null, 
   expiryDate: null, 
   cardName: null, 
@@ -8,8 +9,8 @@ const initialState = {
   isCardSaved: false
 }
 
-
 export default function(state = initialState, action) {
+
   switch(action.type) {
     case SAVECARD: {
       return {
@@ -18,6 +19,15 @@ export default function(state = initialState, action) {
         cardName: action.payload.cardName, 
         cvc: action.payload.cvc,
         isCardSaved: state.isCardSaved
+      }
+    }
+    case GETCARDSUCCESS: {
+      return{ 
+        cardNumber: action.payload.cardNumber, 
+        expiryDate: action.payload.expiryDate, 
+        cardName: action.payload.cardName, 
+        cvc: action.payload.cvc,
+        isCardSaved: true
       }
     }
     case SAVECARDSUCCESS: {
@@ -29,6 +39,7 @@ export default function(state = initialState, action) {
         isCardSaved: true
       }
     }
+    
     default: 
       return state
   }

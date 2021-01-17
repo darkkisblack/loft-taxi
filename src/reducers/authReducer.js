@@ -1,4 +1,5 @@
-import { LOG_IN, LOG_OUT  } from "../actions";
+import { LOG_IN  } from "../actions/logInAction";
+import { LOG_OUT  } from "../actions/logOutAction";
 
 const initialState = {
   isLoggedIn: false,
@@ -6,7 +7,6 @@ const initialState = {
 }
 
 export default function(state = initialState, action) {
-
   switch(action.type) {
     case LOG_IN: {
       return {isLoggedIn: true, token: action.payload}
@@ -16,6 +16,5 @@ export default function(state = initialState, action) {
     }
     default: 
       return state
-    
   }
 }

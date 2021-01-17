@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from "react-redux"
 import chip from "../images/chip.png"
 import cardSign from "../images/card_sign.png"
-import {saveCard} from "../actions"
+import {saveCard} from "../actions/cardAction"
 import {PropTypes} from "prop-types";
 import '../css/Card.css';
 
@@ -31,7 +31,7 @@ class ProfileForm extends Component {
 
   saveProfile = async (event) => {
     event.preventDefault();
-    this.props.saveCard(this.state.cardNumber, this.state.expiryDate, this.state.cardName, this.state.cvc)
+    this.props.saveCard(this.state.cardNumber, this.state.expiryDate, this.state.cardName, this.state.cvc, this.props.token)
   }
 
   
@@ -76,7 +76,7 @@ class ProfileForm extends Component {
                   <div className="Card">
                     <div className="Card__block">
                       <img className="Card__block-image" src={cardSign} alt="card_sign"/>
-                      <input type="text" value="" placeholder={this.state.expiryDate} className="Card__date-output" readOnly></input>
+                      <input type="text" value={this.state.expiryDate} placeholder="2020/01" className="Card__date-output" readOnly></input>
                     </div>
                     <input type="text" placeholder="5545 2300 3432 4521" value={this.state.cardNumber} className="Card__number-output" readOnly></input>
                     <div className="Card__block">
@@ -98,8 +98,12 @@ ProfileForm.propTypes = {
   saveCard: PropTypes.func,
 }
 
+const mapStateToProps = (state) => ({
+  token: state.auth.token
+})
+
 const mapDispatchToProps = dispatch => ({
   saveCard: (cardNumber, expiryDate, cardName, cvc) => dispatch(saveCard({cardNumber, expiryDate, cardName, cvc}))
 })
 
-export default connect(null, mapDispatchToProps)(ProfileForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileForm);
