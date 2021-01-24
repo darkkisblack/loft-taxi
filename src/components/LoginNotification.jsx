@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Link } from "react-router-dom"
 
-const LoginNotification = () => {
+export const LoginNotification = () => {
   return (
     <div  className="Form-container">
       <form className="Form">
